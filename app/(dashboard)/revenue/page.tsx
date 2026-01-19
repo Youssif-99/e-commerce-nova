@@ -67,7 +67,7 @@ export default function RevenuePage() {
   const totalProfit = useMemo(
     () => revenueSeries.reduce((acc, r) => acc + r.profit, 0),
     []
-  );
+  )
 
   return (
     <>
