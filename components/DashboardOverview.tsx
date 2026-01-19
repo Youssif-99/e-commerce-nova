@@ -1,21 +1,40 @@
 "use client";
 
 import { useMemo } from "react";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import {
-  Line,
-  ResponsiveContainer,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Area,
-  AreaChart,
-  BarChart,
-  Bar,
-} from "recharts";
 import CardShell from "@/components/CardShell";
 import StatusPill from "@/components/StatusPill";
 import RolePill from "@/components/RolePill";
+
+const ResponsiveContainer = dynamic(
+  () => import("recharts").then((m) => m.ResponsiveContainer),
+  { ssr: false }
+);
+const AreaChart = dynamic(() => import("recharts").then((m) => m.AreaChart), {
+  ssr: false,
+});
+const Area = dynamic(() => import("recharts").then((m) => m.Area), {
+  ssr: false,
+});
+const Line = dynamic(() => import("recharts").then((m) => m.Line), {
+  ssr: false,
+});
+const BarChart = dynamic(() => import("recharts").then((m) => m.BarChart), {
+  ssr: false,
+});
+const Bar = dynamic(() => import("recharts").then((m) => m.Bar), {
+  ssr: false,
+});
+const XAxis = dynamic(() => import("recharts").then((m) => m.XAxis), {
+  ssr: false,
+});
+const YAxis = dynamic(() => import("recharts").then((m) => m.YAxis), {
+  ssr: false,
+});
+const Tooltip = dynamic(() => import("recharts").then((m) => m.Tooltip), {
+  ssr: false,
+});
 
 type StatCard = {
   label: string;
@@ -109,14 +128,6 @@ export default function DashboardOverview() {
             Real‑time overview of orders, products, customers and revenue – designed to
             plug into any backend.
           </p>
-        </div>
-        <div className="flex items-center gap-2">
-          <button className="hidden rounded-full border border-slate-700/80 px-3 py-1.5 text-xs text-slate-300 transition hover:border-slate-500 hover:bg-slate-900/80 sm:inline-flex">
-            Sandbox mode
-          </button>
-          <button className="rounded-full bg-gradient-to-r from-cyan-500 to-indigo-500 px-3.5 py-1.5 text-xs font-medium text-slate-950 shadow-[0_0_40px_rgba(56,189,248,0.65)] transition hover:from-cyan-400 hover:to-indigo-400">
-            Connect backend
-          </button>
         </div>
       </header>
 

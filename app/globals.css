@@ -3,12 +3,22 @@
 :root {
   --background: #0b1120;
   --foreground: #e2e8f0;
+  --panel: rgba(2, 6, 23, 0.60);
+  --panel-strong: rgba(2, 6, 23, 0.78);
+  --border: rgba(148, 163, 184, 0.22);
+  --muted: rgba(148, 163, 184, 0.78);
+  --muted-strong: rgba(226, 232, 240, 0.92);
   color-scheme: dark;
 }
 
 :root[data-theme="light"] {
   --background: #f8fafc;
   --foreground: #0f172a;
+  --panel: rgba(255, 255, 255, 0.80);
+  --panel-strong: rgba(255, 255, 255, 0.92);
+  --border: rgba(15, 23, 42, 0.12);
+  --muted: rgba(51, 65, 85, 0.78);
+  --muted-strong: rgba(15, 23, 42, 0.92);
   color-scheme: light;
 }
 

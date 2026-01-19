@@ -116,7 +116,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
           <button
             onClick={toggleTheme}
-            className="ml-4 inline-flex items-center gap-2 rounded-full border border-slate-500/40 px-3 py-1.5 text-[11px] font-medium text-slate-200 transition hover:border-cyan-400/60 hover:text-cyan-100 md:ml-0 md:mt-3"
+            className="ml-4 inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] font-medium transition hover:border-cyan-400/60 md:ml-0 md:mt-3 [border-color:var(--border)] [background:var(--panel-strong)] [color:var(--muted-strong)]"
             aria-label="Toggle theme"
           >
             <span
