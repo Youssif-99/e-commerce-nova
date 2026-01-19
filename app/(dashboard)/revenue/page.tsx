@@ -260,7 +260,9 @@ export default function RevenuePage() {
                     cx="50%"
                     cy="50%"
                     labelLine={false}
-                    label={({ method, percent }) => `${method} ${(percent * 100).toFixed(0)}%`}
+                    label={({ method, percent = 0 }) =>
+                      `${method} ${(percent * 100).toFixed(0)}%`
+                    }
                     outerRadius={60}
                     fill="#8884d8"
                     dataKey="value"

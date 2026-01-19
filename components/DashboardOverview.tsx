@@ -3,7 +3,6 @@
 import { useMemo } from "react";
 import { motion } from "framer-motion";
 import {
-  LineChart,
   Line,
   ResponsiveContainer,
   XAxis,
@@ -70,7 +69,12 @@ const statCards: StatCard[] = [
 const recentOrders: Order[] = [
   { id: "#98423", customer: "Sarah Connor", total: "$189.00", status: "Paid" },
   { id: "#98422", customer: "Tony Stark", total: "$1,249.00", status: "Paid" },
-  { id: "#98421", customer: "Bruce Wayne", total: "$5,980.00", status: "Pending" },
+  {
+    id: "#98421",
+    customer: "Bruce Wayne",
+    total: "$5,980.00",
+    status: "Pending",
+  },
   { id: "#98420", customer: "Diana Prince", total: "$329.00", status: "Refunded" },
 ];
 
@@ -88,7 +92,7 @@ const recentUsers: User[] = [
   { name: "Leo Nova", email: "leo@customer.io", role: "Customer" },
 ];
 
-export default function Dashboard() {
+export default function DashboardOverview() {
   const totalTraffic = useMemo(
     () => trafficSeries.reduce((acc, t) => acc + t.value, 0),
     []
@@ -102,8 +106,8 @@ export default function Dashboard() {
             Command Center
           </h1>
           <p className="mt-1 text-xs text-slate-400 sm:text-sm">
-            Real‑time overview of orders, products, customers and revenue –
-            designed to plug into any backend.
+            Real‑time overview of orders, products, customers and revenue – designed to
+            plug into any backend.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -140,31 +144,14 @@ export default function Dashboard() {
 
       <div className="mt-4 grid gap-4 lg:grid-cols-3">
         <div className="space-y-4 lg:col-span-2">
-          <CardShell
-            title="Revenue analytics"
-            description="6‑month revenue and order volume trend."
-          >
+          <CardShell title="Revenue analytics" description="6‑month revenue and order volume trend.">
             <div className="h-52 w-full">
               <ResponsiveContainer>
                 <AreaChart data={revenueSeries}>
                   <defs>
-                    <linearGradient
-                      id="rev"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="1"
-                    >
-                      <stop
-                        offset="0%"
-                        stopColor="#22d3ee"
-                        stopOpacity={0.85}
-                      />
-                      <stop
-                        offset="100%"
-                        stopColor="#22d3ee"
-                        stopOpacity={0}
-                      />
+                    <linearGradient id="rev" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#22d3ee" stopOpacity={0.85} />
+                      <stop offset="100%" stopColor="#22d3ee" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <XAxis
@@ -208,10 +195,7 @@ export default function Dashboard() {
             </div>
           </CardShell>
 
-          <CardShell
-            title="Orders"
-            description="Latest orders flowing through your checkout."
-          >
+          <CardShell title="Orders" description="Latest orders flowing through your checkout.">
             <div className="overflow-x-auto">
               <table className="min-w-full text-left text-xs">
                 <thead className="border-b border-slate-800 text-[10px] uppercase tracking-[0.16em] text-slate-500">
@@ -246,10 +230,7 @@ export default function Dashboard() {
         </div>
 
         <div className="space-y-4">
-          <CardShell
-            title="Traffic mix"
-            description="Top channels driving revenue."
-          >
+          <CardShell title="Traffic mix" description="Top channels driving revenue.">
             <div className="flex items-center gap-4">
               <div className="h-32 flex-1">
                 <ResponsiveContainer>
@@ -260,10 +241,7 @@ export default function Dashboard() {
                       axisLine={false}
                       tickLine={false}
                     />
-                    <YAxis
-                      hide
-                      domain={[0, 50]}
-                    />
+                    <YAxis hide domain={[0, 50]} />
                     <Tooltip
                       contentStyle={{
                         background: "rgba(15,23,42,0.95)",
@@ -274,29 +252,11 @@ export default function Dashboard() {
                       }}
                       labelStyle={{ color: "#e5e7eb", marginBottom: 4 }}
                     />
-                    <Bar
-                      dataKey="value"
-                      radius={[999, 999, 4, 4]}
-                      fill="url(#traffic)"
-                    />
+                    <Bar dataKey="value" radius={[999, 999, 4, 4]} fill="url(#traffic)" />
                     <defs>
-                      <linearGradient
-                        id="traffic"
-                        x1="0"
-                        y1="0"
-                        x2="0"
-                        y2="1"
-                      >
-                        <stop
-                          offset="0%"
-                          stopColor="#6366f1"
-                          stopOpacity={0.95}
-                        />
-                        <stop
-                          offset="100%"
-                          stopColor="#0f172a"
-                          stopOpacity={0}
-                        />
+                      <linearGradient id="traffic" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="#6366f1" stopOpacity={0.95} />
+                        <stop offset="100%" stopColor="#0f172a" stopOpacity={0} />
                       </linearGradient>
                     </defs>
                   </BarChart>
@@ -304,10 +264,7 @@ export default function Dashboard() {
               </div>
               <div className="space-y-1 text-[11px] text-slate-300">
                 {trafficSeries.map((t) => (
-                  <div
-                    key={t.source}
-                    className="flex items-center justify-between gap-4"
-                  >
+                  <div key={t.source} className="flex items-center justify-between gap-4">
                     <span>{t.source}</span>
                     <span className="text-slate-200">
                       {Math.round((t.value / totalTraffic) * 100)}%
@@ -318,10 +275,7 @@ export default function Dashboard() {
             </div>
           </CardShell>
 
-          <CardShell
-            title="Top products"
-            description="Inventory and price signals."
-          >
+          <CardShell title="Top products" description="Inventory and price signals.">
             <div className="space-y-2 text-[11px]">
               {topProducts.map((p) => (
                 <div
@@ -334,19 +288,14 @@ export default function Dashboard() {
                   </div>
                   <div className="text-right">
                     <p className="text-slate-200">{p.price}</p>
-                    <p className="text-[10px] text-slate-500">
-                      {p.stock} in stock
-                    </p>
+                    <p className="text-[10px] text-slate-500">{p.stock} in stock</p>
                   </div>
                 </div>
               ))}
             </div>
           </CardShell>
 
-          <CardShell
-            title="Key users"
-            description="Admins and recent power customers."
-          >
+          <CardShell title="Key users" description="Admins and recent power customers.">
             <div className="space-y-2 text-[11px]">
               {recentUsers.map((u) => (
                 <div
@@ -367,4 +316,5 @@ export default function Dashboard() {
     </>
   );
 }
+
 
