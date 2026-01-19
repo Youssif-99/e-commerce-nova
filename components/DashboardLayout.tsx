@@ -3,9 +3,18 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform } from "framer-motion";
-import SpaceBackground from "./SpaceBackground";
-import GlowOrbits from "./GlowOrbits";
+import { useTheme } from "./ThemeProvider";
+
+const SpaceBackground = dynamic(() => import("./SpaceBackground"), {
+  ssr: false,
+  loading: () => null,
+});
+const GlowOrbits = dynamic(() => import("./GlowOrbits"), {
+  ssr: false,
+  loading: () => null,
+});
 
 function useParallax() {
   const { scrollYProgress } = useScroll();
@@ -17,6 +26,7 @@ function useParallax() {
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const { yBackground, yForeground } = useParallax();
   const pathname = usePathname();
+  const { theme, toggleTheme } = useTheme();
 
   const navItems = [
     { href: "/", label: "Live overview", icon: "●" },
@@ -32,7 +42,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-slate-950 text-slate-50">
+    <main className="relative min-h-screen overflow-hidden bg-[var(--background)] text-[var(--foreground)]">
       <div className="pointer-events-none fixed inset-0 z-0">
         <SpaceBackground />
         <GlowOrbits />
@@ -44,7 +54,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       />
 
       <div className="relative z-10 flex min-h-screen flex-col md:flex-row">
-        <aside className="flex w-full flex-none flex-row items-center justify-between border-b border-cyan-500/10 bg-slate-950/60 px-5 py-3 backdrop-blur-xl md:h-screen md:w-64 md:flex-col md:items-stretch md:border-b-0 md:border-r">
+        <aside className="flex w-full flex-none flex-row items-center justify-between border-b border-cyan-500/10 bg-black/10 px-5 py-3 backdrop-blur-xl md:h-screen md:w-64 md:flex-col md:items-stretch md:border-b-0 md:border-r">
           <div className="flex items-center gap-3">
             <div className="relative h-9 w-9 overflow-hidden rounded-2xl border border-cyan-400/40 bg-slate-900 shadow-[0_0_40px_rgba(34,211,238,0.5)]">
               <div className="absolute inset-0 bg-[conic-gradient(from_180deg,_#22d3ee,_#6366f1,_#22d3ee)] opacity-70" />
@@ -103,6 +113,21 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
               API‑agnostic UI. Wire any backend via REST, GraphQL or TRPC.
             </p>
           </div>
+
+          <button
+            onClick={toggleTheme}
+            className="ml-4 inline-flex items-center gap-2 rounded-full border border-slate-500/40 px-3 py-1.5 text-[11px] font-medium text-slate-200 transition hover:border-cyan-400/60 hover:text-cyan-100 md:ml-0 md:mt-3"
+            aria-label="Toggle theme"
+          >
+            <span
+              className={`h-2.5 w-2.5 rounded-full transition ${
+                theme === "dark"
+                  ? "bg-amber-300 shadow-[0_0_12px_rgba(251,191,36,0.9)]"
+                  : "bg-slate-300 shadow-[0_0_12px_rgba(226,232,240,0.9)]"
+              }`}
+            />
+            {theme === "dark" ? "Dark" : "Light"} mode
+          </button>
         </aside>
 
         <motion.div
