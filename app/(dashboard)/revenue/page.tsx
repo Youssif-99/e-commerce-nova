@@ -94,15 +94,15 @@ export default function RevenuePage() {
     <>
       <header className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="bg-gradient-to-r from-slate-50 via-cyan-100 to-violet-200 bg-clip-text text-xl font-semibold tracking-tight text-transparent sm:text-2xl">
+          <h1 className="title-gradient text-xl font-semibold tracking-tight sm:text-2xl">
             Revenue Analytics
           </h1>
-          <p className="mt-1 text-xs text-slate-400 sm:text-sm">
+          <p className="mt-1 text-xs sm:text-sm [color:var(--muted)]">
             Deep dive into revenue trends, profit margins, and financial performance.
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <button className="rounded-full border border-slate-700/80 px-3 py-1.5 text-xs text-slate-300 transition hover:border-slate-500 hover:bg-slate-900/80">
+          <button className="rounded-full border px-3 py-1.5 text-xs transition hover:border-cyan-400/60 [border-color:var(--border)] [background:var(--panel-strong)] [color:var(--muted-strong)]">
             Export Report
           </button>
           <button className="rounded-full bg-gradient-to-r from-cyan-500 to-indigo-500 px-3.5 py-1.5 text-xs font-medium text-slate-950 shadow-[0_0_40px_rgba(56,189,248,0.65)] transition hover:from-cyan-400 hover:to-indigo-400">
@@ -119,14 +119,14 @@ export default function RevenuePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
             whileHover={{ y: -4, scale: 1.01 }}
-            className="relative overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-950/70 p-3 shadow-[0_18px_50px_rgba(15,23,42,0.85)] backdrop-blur-xl"
+            className="relative overflow-hidden rounded-2xl border p-3 backdrop-blur-xl shadow-[0_18px_50px_rgba(15,23,42,0.22)] [border-color:var(--border)] [background:var(--panel)]"
           >
             <div className="pointer-events-none absolute inset-px rounded-[0.9rem] bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.27),transparent_60%)] opacity-80" />
             <div className="relative">
-              <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-slate-400">
+              <p className="text-[11px] font-medium uppercase tracking-[0.16em] [color:var(--muted)]">
                 {stat.label}
               </p>
-              <p className="mt-2 text-lg font-semibold tracking-tight text-slate-50">
+              <p className="mt-2 text-lg font-semibold tracking-tight [color:var(--muted-strong)]">
                 {stat.value}
               </p>
               <p className="mt-1 text-[11px] text-emerald-300">{stat.diff}</p>
@@ -168,13 +168,13 @@ export default function RevenuePage() {
                   />
                   <Tooltip
                     contentStyle={{
-                      background: "rgba(15,23,42,0.95)",
+                      background: "var(--tooltip-bg)",
                       borderRadius: 12,
-                      border: "1px solid rgba(148,163,184,0.4)",
+                      border: "1px solid var(--tooltip-border)",
                       fontSize: 11,
                       padding: 8,
                     }}
-                    labelStyle={{ color: "#e5e7eb", marginBottom: 4 }}
+                    labelStyle={{ color: "var(--tooltip-label)", marginBottom: 4 }}
                   />
                   <Area
                     type="monotone"
@@ -216,13 +216,13 @@ export default function RevenuePage() {
                   />
                   <Tooltip
                     contentStyle={{
-                      background: "rgba(15,23,42,0.95)",
+                      background: "var(--tooltip-bg)",
                       borderRadius: 12,
-                      border: "1px solid rgba(148,163,184,0.4)",
+                      border: "1px solid var(--tooltip-border)",
                       fontSize: 11,
                       padding: 8,
                     }}
-                    labelStyle={{ color: "#e5e7eb", marginBottom: 4 }}
+                    labelStyle={{ color: "var(--tooltip-label)", marginBottom: 4 }}
                   />
                   <Bar dataKey="revenue" radius={[4, 4, 0, 0]} fill="url(#dailyRev)" />
                   <Bar dataKey="profit" radius={[4, 4, 0, 0]} fill="url(#dailyProf)" />
@@ -249,12 +249,12 @@ export default function RevenuePage() {
               {revenueByCategory.map((cat) => (
                 <div key={cat.category} className="space-y-1">
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-slate-300">{cat.category}</span>
-                    <span className="font-medium text-slate-100">
+                    <span className="[color:var(--muted)]">{cat.category}</span>
+                    <span className="font-medium [color:var(--muted-strong)]">
                       ${cat.revenue.toLocaleString()}
                     </span>
                   </div>
-                  <div className="h-2 overflow-hidden rounded-full bg-slate-900">
+                  <div className="h-2 overflow-hidden rounded-full bg-black/10">
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${cat.percentage}%` }}
@@ -294,9 +294,9 @@ export default function RevenuePage() {
                   </Pie>
                   <Tooltip
                     contentStyle={{
-                      background: "rgba(15,23,42,0.95)",
+                      background: "var(--tooltip-bg)",
                       borderRadius: 12,
-                      border: "1px solid rgba(148,163,184,0.4)",
+                      border: "1px solid var(--tooltip-border)",
                       fontSize: 11,
                       padding: 8,
                     }}
@@ -311,27 +311,27 @@ export default function RevenuePage() {
             description="Key financial metrics."
           >
             <div className="space-y-3 text-xs">
-              <div className="flex items-center justify-between rounded-xl border border-slate-800/80 bg-slate-950/80 px-3 py-2">
-                <span className="text-slate-400">Total Revenue</span>
-                <span className="font-semibold text-slate-100">
+              <div className="flex items-center justify-between rounded-xl border px-3 py-2 [border-color:var(--border)] [background:var(--panel-strong)]">
+                <span className="[color:var(--muted)]">Total Revenue</span>
+                <span className="font-semibold [color:var(--muted-strong)]">
                   ${totalRevenue.toLocaleString()}
                 </span>
               </div>
-              <div className="flex items-center justify-between rounded-xl border border-slate-800/80 bg-slate-950/80 px-3 py-2">
-                <span className="text-slate-400">Total Profit</span>
+              <div className="flex items-center justify-between rounded-xl border px-3 py-2 [border-color:var(--border)] [background:var(--panel-strong)]">
+                <span className="[color:var(--muted)]">Total Profit</span>
                 <span className="font-semibold text-emerald-300">
                   ${totalProfit.toLocaleString()}
                 </span>
               </div>
-              <div className="flex items-center justify-between rounded-xl border border-slate-800/80 bg-slate-950/80 px-3 py-2">
-                <span className="text-slate-400">Profit Margin</span>
-                <span className="font-semibold text-slate-100">
+              <div className="flex items-center justify-between rounded-xl border px-3 py-2 [border-color:var(--border)] [background:var(--panel-strong)]">
+                <span className="[color:var(--muted)]">Profit Margin</span>
+                <span className="font-semibold [color:var(--muted-strong)]">
                   {((totalProfit / totalRevenue) * 100).toFixed(1)}%
                 </span>
               </div>
-              <div className="flex items-center justify-between rounded-xl border border-slate-800/80 bg-slate-950/80 px-3 py-2">
-                <span className="text-slate-400">Avg. Monthly</span>
-                <span className="font-semibold text-slate-100">
+              <div className="flex items-center justify-between rounded-xl border px-3 py-2 [border-color:var(--border)] [background:var(--panel-strong)]">
+                <span className="[color:var(--muted)]">Avg. Monthly</span>
+                <span className="font-semibold [color:var(--muted-strong)]">
                   ${Math.round(totalRevenue / revenueSeries.length).toLocaleString()}
                 </span>
               </div>

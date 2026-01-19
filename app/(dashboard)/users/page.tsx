@@ -1,18 +1,35 @@
 "use client";
 
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import CardShell from "@/components/CardShell";
 import RolePill from "@/components/RolePill";
-import {
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  LineChart,
-  Line,
-} from "recharts";
+
+const ResponsiveContainer = dynamic(
+  () => import("recharts").then((m) => m.ResponsiveContainer),
+  { ssr: false }
+);
+const BarChart = dynamic(() => import("recharts").then((m) => m.BarChart), {
+  ssr: false,
+});
+const Bar = dynamic(() => import("recharts").then((m) => m.Bar), {
+  ssr: false,
+});
+const XAxis = dynamic(() => import("recharts").then((m) => m.XAxis), {
+  ssr: false,
+});
+const YAxis = dynamic(() => import("recharts").then((m) => m.YAxis), {
+  ssr: false,
+});
+const Tooltip = dynamic(() => import("recharts").then((m) => m.Tooltip), {
+  ssr: false,
+});
+const LineChart = dynamic(() => import("recharts").then((m) => m.LineChart), {
+  ssr: false,
+});
+const Line = dynamic(() => import("recharts").then((m) => m.Line), {
+  ssr: false,
+});
 
 type User = {
   id: string;
@@ -63,15 +80,15 @@ export default function UsersPage() {
     <>
       <header className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="bg-gradient-to-r from-slate-50 via-cyan-100 to-violet-200 bg-clip-text text-xl font-semibold tracking-tight text-transparent sm:text-2xl">
+          <h1 className="title-gradient text-xl font-semibold tracking-tight sm:text-2xl">
             Users & Customers
           </h1>
-          <p className="mt-1 text-xs text-slate-400 sm:text-sm">
+          <p className="mt-1 text-xs sm:text-sm [color:var(--muted)]">
             Manage user accounts, roles, and customer relationships.
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <button className="rounded-full border border-slate-700/80 px-3 py-1.5 text-xs text-slate-300 transition hover:border-slate-500 hover:bg-slate-900/80">
+          <button className="rounded-full border px-3 py-1.5 text-xs transition hover:border-cyan-400/60 [border-color:var(--border)] [background:var(--panel-strong)] [color:var(--muted-strong)]">
             Export List
           </button>
           <button className="rounded-full bg-gradient-to-r from-cyan-500 to-indigo-500 px-3.5 py-1.5 text-xs font-medium text-slate-950 shadow-[0_0_40px_rgba(56,189,248,0.65)] transition hover:from-cyan-400 hover:to-indigo-400">
@@ -88,14 +105,14 @@ export default function UsersPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
             whileHover={{ y: -4, scale: 1.01 }}
-            className="relative overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-950/70 p-3 shadow-[0_18px_50px_rgba(15,23,42,0.85)] backdrop-blur-xl"
+            className="relative overflow-hidden rounded-2xl border p-3 backdrop-blur-xl shadow-[0_18px_50px_rgba(15,23,42,0.22)] [border-color:var(--border)] [background:var(--panel)]"
           >
             <div className="pointer-events-none absolute inset-px rounded-[0.9rem] bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.27),transparent_60%)] opacity-80" />
             <div className="relative">
-              <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-slate-400">
+              <p className="text-[11px] font-medium uppercase tracking-[0.16em] [color:var(--muted)]">
                 {stat.label}
               </p>
-              <p className="mt-2 text-lg font-semibold tracking-tight text-slate-50">
+              <p className="mt-2 text-lg font-semibold tracking-tight [color:var(--muted-strong)]">
                 {stat.value}
               </p>
               <p className="mt-1 text-[11px] text-emerald-300">{stat.diff}</p>
@@ -112,7 +129,7 @@ export default function UsersPage() {
           >
             <div className="overflow-x-auto">
               <table className="min-w-full text-left text-xs">
-                <thead className="border-b border-slate-800 text-[10px] uppercase tracking-[0.16em] text-slate-500">
+                <thead className="border-b text-[10px] uppercase tracking-[0.16em] [border-color:var(--border)] [color:var(--muted)]">
                   <tr>
                     <th className="py-2 pr-3">User</th>
                     <th className="px-3 py-2">Role</th>
@@ -122,31 +139,31 @@ export default function UsersPage() {
                     <th className="px-3 py-2 text-right">Status</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-900/80">
+                <tbody className="divide-y [border-color:var(--border)]">
                   {users.map((user) => (
                     <motion.tr
                       key={user.id}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.3 }}
-                      className="align-middle hover:bg-slate-900/40 transition-colors"
+                      className="align-middle transition-colors hover:bg-black/5"
                     >
                       <td className="py-2 pr-3">
                         <div>
-                          <p className="text-[11px] font-medium text-slate-100">{user.name}</p>
-                          <p className="text-[10px] text-slate-500">{user.email}</p>
+                          <p className="text-[11px] font-medium [color:var(--muted-strong)]">{user.name}</p>
+                          <p className="text-[10px] [color:var(--muted)]">{user.email}</p>
                         </div>
                       </td>
                       <td className="px-3 py-2">
                         <RolePill role={user.role} />
                       </td>
-                      <td className="px-3 py-2 text-[11px] text-slate-300">
+                      <td className="px-3 py-2 text-[11px] [color:var(--muted-strong)]/80">
                         {user.orders}
                       </td>
-                      <td className="px-3 py-2 text-[11px] text-slate-200 font-medium">
+                      <td className="px-3 py-2 text-[11px] font-medium [color:var(--muted-strong)]">
                         {user.totalSpent}
                       </td>
-                      <td className="px-3 py-2 text-[11px] text-slate-400">
+                      <td className="px-3 py-2 text-[11px] [color:var(--muted)]">
                         {user.lastActive}
                       </td>
                       <td className="px-3 py-2 text-right">
@@ -154,7 +171,7 @@ export default function UsersPage() {
                           className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium ${
                             user.status === "Active"
                               ? "bg-emerald-500/15 text-emerald-300"
-                              : "bg-slate-500/15 text-slate-400"
+                              : "bg-slate-500/15 text-slate-600"
                           }`}
                         >
                           {user.status}
@@ -189,13 +206,13 @@ export default function UsersPage() {
                   />
                   <Tooltip
                     contentStyle={{
-                      background: "rgba(15,23,42,0.95)",
+                      background: "var(--tooltip-bg)",
                       borderRadius: 12,
-                      border: "1px solid rgba(148,163,184,0.4)",
+                      border: "1px solid var(--tooltip-border)",
                       fontSize: 11,
                       padding: 8,
                     }}
-                    labelStyle={{ color: "#e5e7eb", marginBottom: 4 }}
+                    labelStyle={{ color: "var(--tooltip-label)", marginBottom: 4 }}
                   />
                   <Line
                     type="monotone"
@@ -230,9 +247,9 @@ export default function UsersPage() {
                   />
                   <Tooltip
                     contentStyle={{
-                      background: "rgba(15,23,42,0.95)",
+                      background: "var(--tooltip-bg)",
                       borderRadius: 12,
-                      border: "1px solid rgba(148,163,184,0.4)",
+                      border: "1px solid var(--tooltip-border)",
                       fontSize: 11,
                       padding: 8,
                     }}
